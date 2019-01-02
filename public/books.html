@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>
+            BOOKS
+        </title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/css/books.css">
+        <script src="books.js"></script>
+    </head>
+    <body>
+        <div id="form">
+            <div id="form-elements">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="isbnno">ISBN:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="isbnno" placeholder="Enter ISBN" name="isbn">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="title">TITLE:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="subtitle">SUBTITLE:</label>
+                  <div class="col-sm-10"> 
+                    <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Enter sub-title">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="publishedon">PUBLISHED ON:</label>
+                    <div class="col-sm-10"> 
+                        <input type="date" class="form-control" id="publishedon" name="publishedon" placeholder="published-on">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="publisher">PUBLISHER:</label>
+                    <div class="col-sm-10"> 
+                        <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Enter publisher">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="pages">PAGES:</label>
+                    <div class="col-sm-10"> 
+                        <input type="number" class="form-control" id="pages" name="pages" placeholder="Enter pages">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">DESCRIPTION:</label>
+                    <div class="col-sm-10"> 
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Enter description">
+                    </div>
+                </div>
+                <div class="form-group"> 
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button id="submit" type="submit" class="btn btn-success">SUBMIT</button>
+                    <button id="discard" type="button" class="btn btn-warning">DISCARD</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div id="heading">
+            <h1>BOOKS</h1><button id="add-book" type="button" class="btn btn-success">Add New Book</button>
+        </div>
+        <div class="table-responsive">          
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Image</th>
+                      <th>ISBN</th>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                  </tbody>
+                </table>
+                </div>
+              </div>
+    </body>
+</html>

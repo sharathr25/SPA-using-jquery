@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>
+            AUTHORS
+        </title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="authors.js"></script>
+        <link rel="stylesheet" href="/css/authors.css">
+    </head>
+    <body>
+        <div id="form">
+            <div id="form-elements">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">NAME:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="about">ABOUT:</label>
+                    <div class="col-sm-10"> 
+                      <input type="text" class="form-control" id="about" name="about" placeholder="Enter about">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-sm-2" for="place">PLACE:</label>
+                      <div class="col-sm-10"> 
+                          <input type="text" class="form-control" id="place" name="place" placeholder="Enter place">
+                      </div>
+                  </div>
+                  <div class="form-group"> 
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" id="submit" class="btn btn-success">SUBMIT</button>
+                      <button type="button" id="discard" class="btn btn-warning">DISCARD</button>
+                    </div>
+                  </div>
+                  </div>
+            </div>
+        </div>
+        <div id="heading">
+            <h1>AUTHORS</h1><button id="add-book" type="button" class="btn btn-success">Add New Book</button>
+        </div>
+        <div class="table-responsive">          
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>About</th>
+                      <th>Place</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                  </tbody>
+                </table>
+                </div>
+              </div>
+    </body>
+</html>
