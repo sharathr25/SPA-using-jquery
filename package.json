@@ -7,10 +7,12 @@
     "test": "mocha -w --recursive",
     "test-once": "mocha --recursive",
     "lint": "esw -w './**/*.js'",
-    "lint-once": "eslint './**/*.js",
+    "lint-once": "eslint './**/*.js'",
     "coverage": "watch 'istanbul cover _mocha test/*'",
     "coverage-once": "istanbul cover _mocha test/*",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "convert-author": "node-sass ./public/scss/authors.scss ./public/css/authors.css -w",
+    "convert-book": "node-sass ./public/scss/books.scss ./public/css/books.css -w"
   },
   "author": "sharath",
   "license": "MIT",

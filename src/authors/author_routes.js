@@ -8,7 +8,17 @@ route.get('/authors', async (req, res) => {
     const data = await author.getAuthors();
     res.status(200).json(data[0]);
   } catch (err) {
-    res.status(200).send('some error happend please go back');
+    res.status(500).send('some error happend please go back');
+  }
+});
+
+route.get('/authors/:id', async (req, res) => {
+  const idNo = req.params.id;
+  try {
+    const data = await author.getAuthorById(idNo);
+    res.status(200).json(data[0]);
+  } catch (err) {
+    res.status(500).send('some error happend please go back');
   }
 });
 
@@ -20,6 +30,7 @@ route.post('/authors', (req, res) => {
 route.put('/authors/:id', (req, res) => {
   const isbnNo = req.params.isbn;
   console.log(`delete book with isbn ${isbnNo}`);
+  console.log(req.body);
   res.status(200).send('we will update');
 });
 
