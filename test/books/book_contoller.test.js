@@ -48,4 +48,37 @@ describe('testing test database', () => {
     expect(bookDbData).to.be.an('array');
     expect(bookDbData.length).to.be.equal(0);
   });
+
+  it('adding an book to test database', async () => {
+    const bookTestData = {
+      isbn: 343,
+      title: 'abcd',
+      subtitle: 'xyz',
+      publishedOn: '2018',
+      publisher: 'o reilly',
+      pages: 200,
+      description: 'no desccription',
+      imgsrc: 'no image',
+      id: 1,
+    };
+    const data = await book.insertBook(bookTestData);
+    expect(data[0].affectedRows).to.be.equal(1);
+  });
+  it('updating a book to test database', async () => {
+    const bookTestData = {
+      title: 'abcd',
+      subtitle: 'xyz',
+      publishedOn: '2018',
+      publisher: 'o reilly media',
+      pages: 200,
+      description: 'no desccription',
+      imgsrc: 'no image',
+    };
+    const data = await book.updateBookByIsbn('343', bookTestData);
+    expect(data[0].affectedRows).to.be.equal(1);
+  });
+  it('deleting a book from test database', async () => {
+    const data = await book.deleteBook('343');
+    expect(data[0].affectedRows).to.be.equal(1);
+  });
 });

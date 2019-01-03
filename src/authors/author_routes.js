@@ -37,7 +37,7 @@ route.put('/authors/:id', async (req, res) => {
   const authorData = req.body;
   try {
     await author.updateAuthorById(idNo, authorData);
-    res.status(200).send('auhtor updated');
+    res.status(200).send('author updated');
   } catch (error) {
     res.status(500).send('some error happend please go back');
   }

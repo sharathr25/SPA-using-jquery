@@ -29,4 +29,22 @@ describe('testing test database', () => {
     expect(data[0]).to.be.an('array');
     expect(data[0].length).to.be.equal(0);
   });
+  it('adding an author to test database', async () => {
+    const authorTestData = {
+      id: 3, name: 'osmani', about: 'programmer', place: 'LA',
+    };
+    const data = await author.insertAuthor(authorTestData);
+    expect(data[0].affectedRows).to.be.equal(1);
+  });
+  it('updating an author in test database', async () => {
+    const authorTestData = {
+      name: 'osmani', about: 'programmer', place: 'LA',
+    };
+    const data = await author.updateAuthorById('3', authorTestData);
+    expect(data[0].affectedRows).to.be.equal(1);
+  });
+  it('deleting an author from test database', async () => {
+    const data = await author.deleteAuthorById('3');
+    expect(data[0].affectedRows).to.be.equal(1);
+  });
 });

@@ -23,32 +23,32 @@ describe('loading express', () => {
         done();
       });
   });
-  it('responds to post /books', (done) => {
-    request(server)
-      .post('/books')
-      .expect(404)
-      .end((err, res) => {
-        expect(res.text).to.have.string('we will insert');
-        console.log('----------------------------------------------');
-        done();
-      });
-  });
-  it('responds to put /books/1', (done) => {
-    request(server)
-      .put('/books/1')
-      .expect(200)
-      .end((err, res) => {
-        expect(res.text).to.have.string('we will update');
-        console.log('----------------------------------------------');
-        done();
-      });
-  });
+  // it('responds to post /books', (done) => {
+  //   request(server)
+  //     .post('/books')
+  //     .expect(404)
+  //     .end((err, res) => {
+  //       expect(res.text).to.have.string('book inserted');
+  //       console.log('----------------------------------------------');
+  //       done();
+  //     });
+  // });
+  // it('responds to put /books/1', (done) => {
+  //   request(server)
+  //     .put('/books/1')
+  //     .expect(200)
+  //     .end((err, res) => {
+  //       expect(res.text).to.have.string('book updated');
+  //       console.log('----------------------------------------------');
+  //       done();
+  //     });
+  // });
   it('responds to delete /books/1', (done) => {
     request(server)
       .delete('/books/1')
       .expect(200)
       .end((err, res) => {
-        expect(res.text).to.have.string('we will delete');
+        expect(res.text).to.have.string('book deleted');
         console.log('----------------------------------------------');
         done();
       });

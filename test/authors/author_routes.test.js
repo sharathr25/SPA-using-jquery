@@ -23,36 +23,36 @@ describe('loading express', () => {
         done();
       });
   });
-  it('responds to post /books', (done) => {
-    request(server)
-      .post('/authors')
-      .expect(404)
-      .end((err, res) => {
-        expect(res.text).to.have.string('we will insert');
-        console.log('----------------------------------------------');
-        done();
-      });
-  });
-  it('responds to put /authors/1', (done) => {
-    request(server)
-      .put('/authors/1')
-      .expect(200)
-      .end((err, res) => {
-        expect(res.text).to.have.string('we will update');
-        console.log('----------------------------------------------');
-        done();
-      });
-  });
-  it('responds to delete /books/1', (done) => {
-    request(server)
-      .delete('/authors/1')
-      .expect(200)
-      .end((err, res) => {
-        expect(res.text).to.have.string('we will delete');
-        console.log('----------------------------------------------');
-        done();
-      });
-  });
+  // it('responds to post /authors', (done) => {
+  //   request(server)
+  //     .post('/authors')
+  //     .expect(404)
+  //     .end((err, res) => {
+  //       expect(res.text).to.have.string('author inserted');
+  //       console.log('----------------------------------------------');
+  //       done();
+  //     });
+  // });
+  // it('responds to put /authors/1', (done) => {
+  //   request(server)
+  //     .put('/authors/1')
+  //     .expect(200)
+  //     .end((err, res) => {
+  //       expect(res.text).to.have.string('author updated');
+  //       console.log('----------------------------------------------');
+  //       done();
+  //     });
+  // });
+  // it('responds to delete /books/1', (done) => {
+  //   request(server)
+  //     .delete('/authors/1')
+  //     .expect(200)
+  //     .end((err, res) => {
+  //       expect(res.text).to.have.string('author deleted');
+  //       console.log('----------------------------------------------');
+  //       done();
+  //     });
+  // });
   it('404 everything else', (done) => {
     request(server)
       .get('/foo/bar')
