@@ -73,15 +73,21 @@ $(document).ready(() => {
     };
     if (newAuthor) {
       author.id = $('#id').val();
-      $.post('/books', (responce) => {
-        console.log(responce);
+      $.ajax({
+        url: '/authors',
+        type: 'POST',
+        data: JSON.stringify(author),
+        contentType: 'application/json',
+        success: (responce) => {
+          console.log(responce);
+        },
       });
     } else {
       $.ajax({
         url: `/authors/${id}`,
         type: 'PUT',
         data: JSON.stringify(author),
-        dataType: 'json',
+        contentType: 'application/json',
         success: (responce) => {
           console.log(responce);
         },

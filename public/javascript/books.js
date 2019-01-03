@@ -22,59 +22,60 @@ $(document).ready(() => {
     $('#author-select').show();
   }
 
-  $.get('/books', (data, status) => {
-    console.log(status);
-    console.log(typeof data);
-    for (let i = 0; i < data.length; i += 1) {
-      const content = `<tr>
-      <td>${i + 1}</td>
-      <td><img src="images/${data[i].isbn}.jpeg"></td>
-      <td id="isbn">${data[i].isbn}</td>
-      <td>${data[i].title}</td>
-      <td>${data[i].name}</td>
-      <td><button type="button" class="btn btn-info">Edit</button></td>
-      <td><button id="delete" type="button" class="btn btn-danger">Delete</button></td>
-      </tr>`;
-      $('#table-body').append(content);
-    }
-
-    $('.btn-info').click((event) => {
-      newBook = false;
-      $('#form').css('display', 'block');
-      $('#heading').css('display', 'none');
-      isbn = $(event.target).closest('tr').find('#isbn').text();
-      $.get(`/books/${isbn}`, (book) => {
-        setFormValues(book);
+  function loadBooks() {
+    $.get('/books', (data, status) => {
+      console.log(status);
+      console.log(typeof data);
+      for (let i = 0; i < data.length; i += 1) {
+        const content = `<tr>
+        <td>${i + 1}</td>
+        <td><img src="images/${data[i].isbn}.jpeg" alt="BOOK"></td>
+        <td id="isbn">${data[i].isbn}</td>
+        <td>${data[i].title}</td>
+        <td>${data[i].name}</td>
+        <td><button type="button" class="btn btn-info">Edit</button></td>
+        <td><button id="delete" type="button" class="btn btn-danger">Delete</button></td>
+        </tr>`;
+        $('#table-body').append(content);
+      }
+      $('.btn-info').click((event) => {
+        newBook = false;
+        $('#form').css('display', 'block');
+        $('#heading').css('display', 'none');
+        isbn = $(event.target).closest('tr').find('#isbn').text();
+        $.get(`/books/${isbn}`, (book) => {
+          setFormValues(book);
+        });
+      });
+      $('.btn-danger').click((event) => {
+        isbn = $(event.target).closest('tr').find('#isbn').text();
+        $.ajax({
+          url: `/books/${isbn}`,
+          type: 'DELETE',
+          success: (responce) => {
+            console.log(responce);
+          },
+        });
+      });
+      $('.btn-success').click(() => {
+        newBook = true;
+        let author;
+        $.get('/authors', (responce) => {
+          author = responce;
+          console.log(author);
+          for (let i = 0; i < author.length; i += 1) {
+            const content = `<option value="${author[i].id}">${author[i].name}</option>`;
+            $('#selector').append(content);
+          }
+        });
+        $('#form').css('display', 'block');
+        $('#heading').css('display', 'none');
+        unSetFormValues();
       });
     });
+  }
 
-    $('.btn-danger').click((event) => {
-      isbn = $(event.target).closest('tr').find('#isbn').text();
-      $.ajax({
-        url: `/books/${isbn}`,
-        type: 'DELETE',
-        success: (responce) => {
-          console.log(responce);
-        },
-      });
-    });
-
-    $('.btn-success').click(() => {
-      newBook = true;
-      let author;
-      $.get('/authors', (responce) => {
-        author = responce;
-        console.log(author);
-        for (let i = 0; i < author.length; i += 1) {
-          const content = `<option value="${author[i].id}">${author[i].name}</option>`;
-          $('#selector').append(content);
-        }
-      });
-      $('#form').css('display', 'block');
-      $('#heading').css('display', 'none');
-      unSetFormValues();
-    });
-  });
+  loadBooks();
 
   $('#discard').click(() => {
     $('#form').css('display', 'none');
@@ -95,19 +96,29 @@ $(document).ready(() => {
     };
     if (newBook) {
       book.isbn = $('#isbnno').val();
-      $.post('/books', (responce) => {
-        console.log(responce);
+      $.ajax({
+        url: '/books',
+        type: 'POST',
+        data: JSON.stringify(book),
+        contentType: 'application/json',
+        success: (responce) => {
+          console.log(responce);
+        },
       });
     } else {
       $.ajax({
         url: `/books/${isbn}`,
         type: 'PUT',
+        data: JSON.stringify(book),
+        contentType: 'application/json',
         success: (responce) => {
           console.log(responce);
         },
       });
     }
+    loadBooks();
+    $('#form').css('display', 'none');
+    $('#heading').css('display', 'block');
     console.log(book);
-    console.log();
   });
 });

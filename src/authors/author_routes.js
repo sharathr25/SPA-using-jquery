@@ -22,22 +22,35 @@ route.get('/authors/:id', async (req, res) => {
   }
 });
 
-route.post('/authors', (req, res) => {
-  console.log('insert new book');
-  res.status(200).send('we will insert');
+route.post('/authors', async (req, res) => {
+  const authorData = req.body;
+  try {
+    await author.insertAuthor(authorData);
+    res.status(200).send('author inserted');
+  } catch (error) {
+    res.status(500).send('some error happend please go back');
+  }
 });
 
-route.put('/authors/:id', (req, res) => {
-  const isbnNo = req.params.isbn;
-  console.log(`delete book with isbn ${isbnNo}`);
-  console.log(req.body);
-  res.status(200).send('we will update');
+route.put('/authors/:id', async (req, res) => {
+  const idNo = req.params.id;
+  const authorData = req.body;
+  try {
+    await author.updateAuthorById(idNo, authorData);
+    res.status(200).send('auhtor updated');
+  } catch (error) {
+    res.status(500).send('some error happend please go back');
+  }
 });
 
-route.delete('/authors/:id', (req, res) => {
-  const isbnNo = req.params.isbn;
-  console.log(`delete book with isbn ${isbnNo}`);
-  res.status(200).send('we will delete');
+route.delete('/authors/:id', async (req, res) => {
+  const idNo = req.params.id;
+  try {
+    await author.deleteAuthorById(idNo);
+    res.status(200).send('author deleted');
+  } catch (error) {
+    res.status(500).send('some error happend please go back');
+  }
 });
 
 module.exports = route;

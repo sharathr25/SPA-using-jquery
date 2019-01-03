@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const homeRoutes = require('./src/home_routes.js');
 const bookRoutes = require('./src/books/book_routes.js');
 const authorRoutes = require('./src/authors/author_routes.js');
@@ -6,6 +7,7 @@ const middleware = require('./src/common/middleware.js');
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(middleware.logUrl);
 app.use(bookRoutes);

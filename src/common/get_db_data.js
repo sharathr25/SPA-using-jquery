@@ -13,6 +13,7 @@ async function execute(sql, parameters) {
     }
   } catch (error) {
     console.log('sql error');
+    console.log(error);
   } finally {
     connection.close();
   }

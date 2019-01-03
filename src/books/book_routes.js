@@ -14,7 +14,6 @@ route.get('/books', async (req, res) => {
 
 route.get('/books/:isbn', async (req, res) => {
   const isbnNo = req.params.isbn;
-  console.log(`sending book with isbn ${isbnNo}`);
   try {
     const booksData = await book.getBookByIsbn(isbnNo);
     res.status(200).json(booksData[0]);
@@ -23,21 +22,36 @@ route.get('/books/:isbn', async (req, res) => {
   }
 });
 
-route.post('/books', (req, res) => {
-  console.log('inserting book');
-  res.status(200).send('we will insert');
+route.post('/books', async (req, res) => {
+  const bookData = req.body;
+  try {
+    await book.insertBook(bookData);
+    res.status(200).send('book inserted');
+  } catch (error) {
+    res.status(500).send('some error happend please go back');
+  }
 });
 
-route.put('/books/:isbn', (req, res) => {
+route.put('/books/:isbn', async (req, res) => {
   const isbnNo = req.params.isbn;
-  console.log(`update book with isbn ${isbnNo}`);
+  const bookData = req.body;
+  try {
+    await book.updateBookByIsbn(isbnNo, bookData);
+    res.status(200).send('book updated');
+  } catch (error) {
+    res.status(500).send('some error happend please go back');
+  }
   res.status(200).send('we will update');
 });
 
-route.delete('/books/:isbn', (req, res) => {
+route.delete('/books/:isbn', async (req, res) => {
   const isbnNo = req.params.isbn;
-  console.log(`delete book with isbn ${isbnNo}`);
-  res.status(200).send('we will delete');
+  try {
+    await book.deleteBook(isbnNo);
+    res.status(200).send('book deleted');
+  } catch (error) {
+    res.status(500).send('some error happend please go back');
+  }
 });
 
 module.exports = route;
