@@ -23,29 +23,51 @@ describe('loading express', () => {
         done();
       });
   });
-  // it('responds to post /books', (done) => {
-  //   request(server)
-  //     .post('/books')
-  //     .expect(404)
-  //     .end((err, res) => {
-  //       expect(res.text).to.have.string('book inserted');
-  //       console.log('----------------------------------------------');
-  //       done();
-  //     });
-  // });
-  // it('responds to put /books/1', (done) => {
-  //   request(server)
-  //     .put('/books/1')
-  //     .expect(200)
-  //     .end((err, res) => {
-  //       expect(res.text).to.have.string('book updated');
-  //       console.log('----------------------------------------------');
-  //       done();
-  //     });
-  // });
+  it('responds to post /books', (done) => {
+    const bookTestData = {
+      isbn: 555,
+      title: 'abcd',
+      subtitle: 'xyz',
+      publishedOn: '2018',
+      publisher: 'o reilly',
+      pages: 200,
+      description: 'no desccription',
+      imgsrc: 'no image',
+      id: 1,
+    };
+    request(server)
+      .post('/books')
+      .send(bookTestData)
+      .expect(200)
+      .end((err, res) => {
+        expect(res.text).to.have.string('book inserted');
+        console.log('----------------------------------------------');
+        done();
+      });
+  });
+  it('responds to put /books/1', (done) => {
+    const bookTestData = {
+      title: 'abcd',
+      subtitle: 'xyz',
+      publishedOn: '2018',
+      publisher: 'o reilly media',
+      pages: 200,
+      description: 'no desccription',
+      imgsrc: 'no image',
+    };
+    request(server)
+      .put('/books/555')
+      .send(bookTestData)
+      .expect(200)
+      .end((err, res) => {
+        expect(res.text).to.have.string('book updated');
+        console.log('----------------------------------------------');
+        done();
+      });
+  });
   it('responds to delete /books/1', (done) => {
     request(server)
-      .delete('/books/1')
+      .delete('/books/555')
       .expect(200)
       .end((err, res) => {
         expect(res.text).to.have.string('book deleted');

@@ -48,11 +48,12 @@ $(document).ready(() => {
         type: 'DELETE',
         success: (responce) => {
           console.log(responce);
+          window.location.reload();
         },
       });
     });
 
-    $('.btn-success').click(() => {
+    $('#add-author').click(() => {
       newAuthor = true;
       $('#form').css('display', 'block');
       $('#heading').css('display', 'none');
@@ -93,6 +94,6 @@ $(document).ready(() => {
         },
       });
     }
-    console.log(author);
+    window.location.reload();
   });
 });

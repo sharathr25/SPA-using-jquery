@@ -14,12 +14,8 @@ route.get('/authors', async (req, res) => {
 
 route.get('/authors/:id', async (req, res) => {
   const idNo = req.params.id;
-  try {
-    const data = await author.getAuthorById(idNo);
-    res.status(200).json(data[0]);
-  } catch (err) {
-    res.status(500).send('some error happend please go back');
-  }
+  const data = await author.getAuthorById(idNo);
+  res.status(200).json(data[0]);
 });
 
 route.post('/authors', async (req, res) => {

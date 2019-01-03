@@ -41,7 +41,6 @@ route.put('/books/:isbn', async (req, res) => {
   } catch (error) {
     res.status(500).send('some error happend please go back');
   }
-  res.status(200).send('we will update');
 });
 
 route.delete('/books/:isbn', async (req, res) => {

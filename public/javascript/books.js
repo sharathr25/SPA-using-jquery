@@ -1,6 +1,8 @@
 $(document).ready(() => {
   let isbn;
   let newBook;
+  let row;
+  // let count;
 
   function setFormValues(book) {
     $('#isbnno').val(book[0].isbn).attr('disabled', true);
@@ -23,48 +25,51 @@ $(document).ready(() => {
   }
 
   function loadBooks() {
-    $.get('/books', (data, status) => {
-      console.log(status);
-      console.log(typeof data);
-      for (let i = 0; i < data.length; i += 1) {
+    $.get('/books', (data) => {
+      let i = 0;
+      for (; i < data.length; i += 1) {
         const content = `<tr>
         <td>${i + 1}</td>
-        <td><img src="images/${data[i].isbn}.jpeg" alt="BOOK"></td>
+        <td><img src="images/${data[i].isbn}.jpeg" alt="BOOK" id="img"></td>
         <td id="isbn">${data[i].isbn}</td>
-        <td>${data[i].title}</td>
-        <td>${data[i].name}</td>
+        <td id="title">${data[i].title}</td>
+        <td id="name">${data[i].name}</td>
         <td><button type="button" class="btn btn-info">Edit</button></td>
         <td><button id="delete" type="button" class="btn btn-danger">Delete</button></td>
         </tr>`;
         $('#table-body').append(content);
       }
+      // count = i;
       $('.btn-info').click((event) => {
         newBook = false;
         $('#form').css('display', 'block');
         $('#heading').css('display', 'none');
         isbn = $(event.target).closest('tr').find('#isbn').text();
+        row = $(event.target).closest('tr');
         $.get(`/books/${isbn}`, (book) => {
           setFormValues(book);
         });
       });
-      $('.btn-danger').click((event) => {
+      $('#delete').click((event) => {
         isbn = $(event.target).closest('tr').find('#isbn').text();
+        row = $(event.target).closest('tr');
         $.ajax({
           url: `/books/${isbn}`,
           type: 'DELETE',
           success: (responce) => {
             console.log(responce);
+            window.location.reload();
           },
         });
       });
-      $('.btn-success').click(() => {
+      $('#add-book').click(() => {
         newBook = true;
         let author;
         $.get('/authors', (responce) => {
           author = responce;
           console.log(author);
-          for (let i = 0; i < author.length; i += 1) {
-            const content = `<option value="${author[i].id}">${author[i].name}</option>`;
+          for (let j = 0; j < author.length; j += 1) {
+            const content = `<option value="${author[j].id}">${author[j].name}</option>`;
             $('#selector').append(content);
           }
         });
@@ -84,7 +89,6 @@ $(document).ready(() => {
 
   $('#submit').click(() => {
     const authorId = $('#selector').children('option:selected').attr('value');
-    console.log(authorId);
     const book = {
       title: $('#title').val(),
       subtitle: $('#subtitle').val(),
@@ -105,6 +109,7 @@ $(document).ready(() => {
           console.log(responce);
         },
       });
+      window.location.reload();
     } else {
       $.ajax({
         url: `/books/${isbn}`,
@@ -115,8 +120,12 @@ $(document).ready(() => {
           console.log(responce);
         },
       });
+      $.get(`books/${isbn}`, (data) => {
+        console.log(data);
+        row.find('#title').text(data[0].title);
+        row.find('#name').text(data[0].name);
+      });
     }
-    loadBooks();
     $('#form').css('display', 'none');
     $('#heading').css('display', 'block');
     console.log(book);
